@@ -4,6 +4,7 @@ public class User {
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
+	
 	public User(String username) {
 	this.username = username;
 	}

@@ -9,7 +9,11 @@ public class Room {
     	this.room = room;
     	
     }
-
+    
+    public Room(String size) {
+    	this.size = size;
+    	
+    }
 	
      
 }

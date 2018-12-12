@@ -1,0 +1,398 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+
+import com.toedter.calendar.JDayChooser;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class FormSearch extends JFrame {
+
+	private JFrame frame;
+	private JPanel contentPane;
+	JPanel panellist;
+	JPanel gui;
+	JDateChooser dateChooser = new JDateChooser();
+
+	JPanel panel1 = new JPanel();
+	JPanel panel2 = new JPanel();
+	JPanel panel3 = new JPanel();
+	JPanel panel4 = new JPanel();
+	JPanel panel5 = new JPanel();
+	JPanel panel6 = new JPanel();
+	public String room, date, timeStart, timeEnd, status;
+	String size;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FormSearch frame = new FormSearch();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public FormSearch() {
+		setTitle("Booking");
+
+		getContentPane().setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 35));
+		getContentPane().setBackground(new Color(255, 204, 51));
+		setBackground(Color.WHITE);
+		setResizable(false);
+		setBounds(100, 100, 1032, 672);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(null);
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1003, 672);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 204, 51));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JPanel panellist = new JPanel();
+		panellist.setBackground(Color.WHITE);
+		panellist.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panellist.setBounds(52, 277, 896, 360);
+		JPanel gui = new JPanel(new BorderLayout(2, 2));
+		gui.setBounds(0, 0, 896, 360);
+		final JPanel panel = new JPanel(new GridLayout(0, 1));
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		final JScrollPane scroll = new JScrollPane(panel);
+		scroll.setBounds(52, 277, 896, 360);
+		scroll.setPreferredSize(new Dimension(415, 410));
+		gui.add(scroll, BorderLayout.CENTER);
+
+		
+		panellist.setLayout(null);
+		panellist.add(gui);
+		contentPane.add(panellist);
+		panellist.setVisible(false);
+
+		JLabel lblNewLabel = new JLabel("SIZE");
+		lblNewLabel.setBackground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 40));
+		lblNewLabel.setBounds(120, 44, 72, 36);
+		getContentPane().add(lblNewLabel);
+
+		JLabel lblDate = new JLabel("DATE");
+		lblDate.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 40));
+		lblDate.setBackground(Color.WHITE);
+		lblDate.setBounds(120, 93, 72, 36);
+		getContentPane().add(lblDate);
+
+		JLabel lblTime = new JLabel("TIME");
+		lblTime.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 40));
+		lblTime.setBackground(Color.WHITE);
+		lblTime.setBounds(120, 144, 72, 36);
+		getContentPane().add(lblTime);
+
+		JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 28));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "", "50", "100", "150", "200" }));
+		comboBox.setBackground(new Color(255, 255, 255));
+		comboBox.setBounds(221, 44, 177, 38);
+		getContentPane().add(comboBox);
+
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBackground(new Color(255, 255, 255));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { "", "08:00", "09:00", "10:00", "11:00", "12:00",
+				"13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00" }));
+		comboBox_1.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 35));
+		comboBox_1.setBounds(221, 145, 87, 38);
+		getContentPane().add(comboBox_1);
+
+		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setBackground(new Color(255, 255, 255));
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] { "", "08:00", "09:00", "10:00", "11:00", "12:00",
+				"13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00" }));
+		comboBox_2.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 35));
+		comboBox_2.setBounds(358, 145, 87, 38);
+		getContentPane().add(comboBox_2);
+
+		JLabel lblTo = new JLabel("to");
+		lblTo.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 35));
+		lblTo.setBackground(Color.WHITE);
+		lblTo.setBounds(320, 146, 26, 36);
+		getContentPane().add(lblTo);
+
+		JButton search = new JButton("Search");
+		search.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+	
+				
+				RoomService roomService = new RoomService();
+				ArrayList<Room> arr = roomService.getRoom(comboBox.getSelectedItem().toString(),
+						dateChooser.getDate(), comboBox_1.getSelectedItem().toString(),
+						comboBox_2.getSelectedItem().toString(), "", "");
+				
+				if (arr.size() == 0) {
+					panel.removeAll();
+					ListSearch listSearch = new ListSearch();
+					listSearch.date.setText("------------------------Not found Room------------------------");
+					listSearch.room.setText("");
+					listSearch.size.setText("");
+					listSearch.timeStart.setText("");
+					listSearch.timeEnd.setText("");
+					listSearch.status.setText("");
+					panel.add(listSearch.pannelsearch());
+					panel.revalidate();
+					int height = (int) panel.getPreferredSize().getHeight();
+					scroll.getVerticalScrollBar().setValue(height);
+				} else {
+					panel.removeAll();
+					for (int i = 0; i < arr.size(); i++) {
+
+						room = (String) arr.get(i).room;
+						status = (String) arr.get(i).status;
+						size = (String) arr.get(i).size;
+						date = (String) arr.get(i).date;
+						timeStart = (String) arr.get(i).timeStart;
+						timeEnd = (String) arr.get(i).timeEnd;
+
+						ListSearch listSearch = new ListSearch();
+					
+							listSearch.size.setText(size);
+							listSearch.date.setText(date);
+							listSearch.room.setText(room);
+							listSearch.status.setText(status);
+							listSearch.timeStart.setText(timeStart);
+							listSearch.timeEnd.setText(timeEnd);
+							panel.add(listSearch.pannelsearch());
+							panel.revalidate();
+							int height = (int) panel.getPreferredSize().getHeight();
+							scroll.getVerticalScrollBar().setValue(height);
+					
+					}
+				}
+
+			}
+		});
+		search.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				panellist.setVisible(true);
+				panel1.setVisible(true);
+				panel2.setVisible(true);
+				panel3.setVisible(true);
+				panel4.setVisible(true);
+				panel5.setVisible(true);
+				panel6.setVisible(true);
+			}
+		});
+		search.setBackground(new Color(204, 204, 153));
+		search.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 25));
+		search.setBounds(468, 155, 87, 25);
+		getContentPane().add(search);
+
+		dateChooser.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 20));
+		dateChooser.setBounds(221, 93, 177, 36);
+		
+		Date date = new Date();
+		dateChooser.setDate(date);
+		getContentPane().add(dateChooser);
+
+		panel1.setBackground(new Color(204, 153, 102));
+		panel1.setBounds(52, 219, 150, 58);
+		contentPane.add(panel1);
+		panel1.setLayout(null);
+
+		JLabel lblNewLabel_1 = new JLabel("room");
+		lblNewLabel_1.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		lblNewLabel_1.setBounds(53, 13, 56, 32);
+		panel1.add(lblNewLabel_1);
+
+		panel2.setBackground(new Color(204, 153, 102));
+		panel2.setBounds(202, 219, 150, 58);
+		contentPane.add(panel2);
+		panel2.setLayout(null);
+
+		JLabel lblSize = new JLabel("size");
+		lblSize.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		lblSize.setBounds(59, 13, 56, 32);
+		panel2.add(lblSize);
+
+		panel3.setBackground(new Color(204, 153, 102));
+		panel3.setBounds(351, 219, 150, 58);
+		contentPane.add(panel3);
+		panel3.setLayout(null);
+
+		JLabel lblDate_1 = new JLabel("date");
+		lblDate_1.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		lblDate_1.setBounds(49, 13, 56, 32);
+		panel3.add(lblDate_1);
+
+		panel4.setBackground(new Color(204, 153, 102));
+		panel4.setBounds(500, 219, 150, 58);
+		contentPane.add(panel4);
+		panel4.setLayout(null);
+
+		JLabel lblTimstart = new JLabel("timstart");
+		lblTimstart.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		lblTimstart.setBounds(46, 13, 70, 32);
+		panel4.add(lblTimstart);
+
+		panel5.setBackground(new Color(204, 153, 102));
+		panel5.setBounds(649, 219, 150, 58);
+		contentPane.add(panel5);
+		panel5.setLayout(null);
+
+		JLabel lblTimend = new JLabel("timend");
+		lblTimend.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		lblTimend.setBounds(46, 13, 70, 32);
+		panel5.add(lblTimend);
+
+		panel6.setBackground(new Color(204, 153, 102));
+		panel6.setBounds(798, 219, 150, 58);
+		contentPane.add(panel6);
+		panel6.setLayout(null);
+
+		JLabel lblStatus = new JLabel("status");
+		lblStatus.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		lblStatus.setBounds(40, 13, 70, 32);
+		panel6.add(lblStatus);
+
+		panel1.setVisible(false);
+		panel2.setVisible(false);
+		panel3.setVisible(false);
+		panel4.setVisible(false);
+		panel5.setVisible(false);
+		panel6.setVisible(false);
+	}
+}
+
+class ListSearch extends JPanel {
+	JPanel pannel = new JPanel();
+	JLabel room;
+	JLabel size;
+	JLabel date;
+	JLabel timeStart;
+	JLabel timeEnd;
+	JLabel status;
+	JCheckBox status2;
+
+	public ListSearch() {
+		pannel.setBackground(Color.WHITE);
+		
+		status2 = new JCheckBox("");
+		status2.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		status2.setBounds(798, 11, 100, 40);
+		pannel.add(status2);
+
+		room = new JLabel("New label");
+		room.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		room.setBounds(52, 11, 100, 40);
+		pannel.add(room);
+
+		JLabel a = new JLabel("                         ");
+		pannel.add(a);
+
+		size = new JLabel("New label");
+		size.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		size.setBounds(202, 11, 100, 40);
+		pannel.add(size);
+
+		JLabel a1 = new JLabel("                         ");
+		pannel.add(a1);
+
+		date = new JLabel("New label");
+		date.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		date.setBounds(351, 11, 100, 40);
+		pannel.add(date);
+
+		JLabel a2 = new JLabel("                         ");
+		pannel.add(a2);
+
+		timeStart = new JLabel("New label");
+		timeStart.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		timeStart.setBounds(500, 11, 100, 40);
+		pannel.add(timeStart);
+
+		JLabel a3 = new JLabel("                         ");
+		pannel.add(a3);
+
+		timeEnd = new JLabel("New label");
+		timeEnd.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		timeEnd.setBounds(649, 11, 100, 40);
+		pannel.add(timeEnd);
+
+		JLabel a4 = new JLabel("                         ");
+		pannel.add(a4);
+
+		status = new JLabel("New label");
+		status.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		status.setBounds(798, 11, 100, 40);
+		pannel.add(status);
+		
+
+
+	}
+
+	JPanel pannelsearch() {
+		return pannel;
+
+	}
+
+	public void setlabelRoom(String txt) {
+		this.room.setText(txt);
+		System.out.println(room.getText() + " 230");
+	}
+
+	public void setlabelSize(String txt) {
+		this.size.setText(txt);
+	}
+
+	public void setlabelDate(String txt) {
+		this.date.setText(txt);
+	}
+
+	public void setlabelTimeStart(String txt) {
+		this.timeStart.setText(txt);
+	}
+
+	public void setlabelTimeEnd(String txt) {
+		this.timeEnd.setText(txt);
+	}
+
+	public void setlabelStatus(String txt) {
+		this.status.setText(txt);
+	}
+	public void setJCheckBoxStatus(String txt) {
+		this.status2.setText(txt);
+	}
+
+}
+

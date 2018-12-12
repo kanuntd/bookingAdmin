@@ -43,7 +43,7 @@ public class FormHistory extends JFrame{
 	/**
 	 * Launch the application.
 	 */
-	public static void showHistory() {
+	public void showHistory() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -60,7 +60,6 @@ public class FormHistory extends JFrame{
 	 * Create the application.
 	 */
 	public FormHistory() {
-
 		getContentPane().setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 35));
 		getContentPane().setBackground(new Color(153, 153, 102));
 		setBackground(Color.WHITE);
