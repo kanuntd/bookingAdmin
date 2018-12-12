@@ -2,10 +2,11 @@ import java.util.ArrayList;
 
 import org.bson.Document;
 
-public class RoomService  {
-   public static ArrayList<Room> arr ;
-   public static ArrayList<Room> data;
-   public RoomService() {
+public class RoomService {
+	public static ArrayList<Room> arr;
+	public static ArrayList<Room> data;
+
+	public RoomService() {
 //	   arr = new ArrayList<>();
 //	   data = new ArrayList<>();
 //	   Room r = new Room("50","Nov 14, 2018","08:00","09:00","R01","empty");
@@ -29,8 +30,9 @@ public class RoomService  {
 //	   data.add(r8);
 //	   data.add(r9);
 //	   
-	   
-   }
+
+	}
+
 //	public static ArrayList<Room> getRoom(String size, String date, String timeStart, String timeEnd,String room, String status){
 //		RoomDao roomDao = new RoomDao();
 //		arr.add(new Room(size,date,timeStart,timeEnd,room,status));
@@ -57,12 +59,49 @@ public class RoomService  {
 //		return getroom;
 //	}
 	public static void insertBooking() {
-		
-		
+
 	}
-	public static ArrayList<Booking> getBooking(Room room,String date,String timeEnd,String timestart){
-		ArrayList<Booking> getBooking = new ArrayList<>();
-		return getBooking;
+
+	public static ArrayList<Booking> getBooking(Room room, String date, String timestart, String timeEnd) {
+		RoomDao dao = new RoomDao();
+		ArrayList<Booking> history = new ArrayList<>();
+		for (Booking read : dao.getBooking()) {
+			if (read.status.equals("false")) {///////////////////////// ****
+				if (room.room.equals("") || room.room.equals(read.room.room)) {
+					if (room.size.equals("") || room.size.equals(read.room.size)) {
+						if (date.equals(read.date)) {
+							int start = 0;
+							int end = 0;
+							int dbstart = Integer.parseInt(read.timeStart.substring(0, 2));
+							int dbend = Integer.parseInt(read.timeEnd.substring(0, 2));
+							if (timestart.equals("") && timeEnd.equals("")) {
+								history.add(new Booking(read.date, read.timeStart, read.timeEnd, read.status, read.room, read.user));
+							} else if (timestart.equals("")) {
+								end = Integer.parseInt(timeEnd.substring(0, 2));
+								if (end>=dbend) {
+									history.add(new Booking(read.date, read.timeStart, read.timeEnd, read.status, read.room, read.user));
+								}
+							} else if (timeEnd.equals("")) {
+								start = Integer.parseInt(timestart.substring(0, 2));
+								if (start<=dbstart) {
+									history.add(new Booking(read.date, read.timeStart, read.timeEnd, read.status, read.room, read.user));
+								}
+							} else {
+								start = Integer.parseInt(timestart.substring(0, 2));
+								end = Integer.parseInt(timeEnd.substring(0, 2));
+								if (start<=dbstart&&end>=dbend) {
+									history.add(new Booking(read.date, read.timeStart, read.timeEnd, read.status, read.room, read.user));
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		for(Booking g : history) {
+			System.out.println(g.user.username);
+		}
+		return history;
 	}
 
 }

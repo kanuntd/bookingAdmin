@@ -14,7 +14,20 @@
 <fullyQualifiedTypeName name="java.awt.GridLayout"/>
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
 <fullyQualifiedTypeName name="javax.swing.border.EmptyBorder"/>
-<fullyQualifiedTypeName name="com.mongodb.DBObject"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="ConnectMongoDB"/>
+<fullyQualifiedTypeName name="com.mongodb.client.model.Collation"/>
+<fullyQualifiedTypeName name="com.mongodb.client.FindIterable"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="com.mongodb.BasicDBObject"/>
+<fullyQualifiedTypeName name="com.mongodb.DBCursor"/>
+<fullyQualifiedTypeName name="com.mongodb.DBObject"/>
+<fullyQualifiedTypeName name="org.bson.Document"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Constructor"/>
+<fullyQualifiedTypeName name="java.nio.file.attribute.UserPrincipalLookupService"/>
+<fullyQualifiedTypeName name="Room"/>
+<fullyQualifiedTypeName name="User"/>
+<fullyQualifiedTypeName name="RoomDao"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="Booking"/>
 </qualifiedTypeNameHistroy>

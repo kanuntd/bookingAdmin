@@ -1,8 +1,10 @@
 
 public class Room {
 	 String room,size;
-   
-    public Room(String size,String room) {
+   public Room() {
+	// TODO Auto-generated constructor stub
+}
+    public Room(String room,String size) {
     	this.size = size;
     	this.room = room;
     	

@@ -1,0 +1,17 @@
+
+public class Booking {
+	String date, timeStart, timeEnd, status;
+	Room room;
+	User user;
+
+	public Booking(String date, String timeStart, String timeEnd, String status, Room rooms, User users) {
+		this.date = date;
+		this.timeStart = timeStart;
+		this.timeEnd = timeEnd;
+		this.status = status;
+		this.room.size = rooms.size;
+		this.room.room = rooms.room;
+		this.user.username = user.username;
+	}
+
+}
