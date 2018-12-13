@@ -1,0 +1,177 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+import javax.swing.JSeparator;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import com.toedter.calendar.JDayChooser;
+import com.toedter.calendar.JDateChooser;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.beans.PropertyChangeListener;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.beans.PropertyChangeEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import javax.swing.SwingConstants;
+import javax.swing.DefaultComboBoxModel;
+
+public class EditBooking {
+
+	private JFrame frmChangeSchudal;
+	String newDate = "";
+   ArrayList<Booking> arr = new ArrayList<>();
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					EditBooking window = new EditBooking();
+					window.frmChangeSchudal.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public EditBooking() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+
+		frmChangeSchudal = new JFrame();
+		frmChangeSchudal.setTitle("Change Schedule");
+		frmChangeSchudal.setBounds(100, 100, 700, 500);
+		frmChangeSchudal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmChangeSchudal.getContentPane().setLayout(null);
+		String calendarDate;
+
+		JLabel date = new JLabel("Date");
+		date.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		date.setBounds(86, 138, 59, 19);
+		frmChangeSchudal.getContentPane().add(date);
+
+		JLabel timeStart = new JLabel("Start");
+		timeStart.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		timeStart.setBounds(86, 207, 59, 19);
+		frmChangeSchudal.getContentPane().add(timeStart);
+
+		JLabel timeEnd = new JLabel("end");
+		timeEnd.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		timeEnd.setBounds(300, 212, 59, 19);
+		frmChangeSchudal.getContentPane().add(timeEnd);
+
+		JButton buttonSendRequest = new JButton("Send Request");
+
+		buttonSendRequest.setBounds(454, 371, 121, 25);
+		frmChangeSchudal.getContentPane().add(buttonSendRequest);
+
+		String[] TimeStart = new String[] { "8.00", "9.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00",
+				"16.00", "17.00", "18.00", "19.00", "20.00" };
+		JComboBox<String> dropdownTimeStart = new JComboBox(TimeStart);
+		dropdownTimeStart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String newTimeStart = dropdownTimeStart.getItemAt(dropdownTimeStart.getSelectedIndex());
+			}
+		});
+		dropdownTimeStart.setModel(new DefaultComboBoxModel(new String[] { "8.00", "9.00", "10.00", "11.00", "12.00",
+				"13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20.00" }));
+		dropdownTimeStart.setBounds(157, 209, 116, 22);
+		frmChangeSchudal.getContentPane().add(dropdownTimeStart);
+
+		String[] TimeEnd = new String[] { "9.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00",
+				"17.00", "18.00", "19.00", "20.00", "21.00" };
+		JComboBox<String> dropdownTimeEnd = new JComboBox(TimeEnd);
+		dropdownTimeEnd.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String newTimeEnd = dropdownTimeEnd.getItemAt(dropdownTimeEnd.getSelectedIndex());
+			}
+		});
+
+		dropdownTimeEnd.setBounds(374, 209, 116, 22);
+		frmChangeSchudal.getContentPane().add(dropdownTimeEnd);
+
+		JButton buttonBack = new JButton("Back");
+		buttonBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			
+				
+				HistoryBookingForm a = new HistoryBookingForm();
+				a.setVisible(true);
+				frmChangeSchudal.setVisible(false);
+			}
+		});
+
+		buttonBack.setBounds(325, 371, 97, 25);
+		frmChangeSchudal.getContentPane().add(buttonBack);
+
+		JDateChooser calendarMenu = new JDateChooser();
+		calendarMenu.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				if (calendarMenu.getDate() != null) {
+					String date = calendarMenu.getDate().toString();
+					String day = date.substring(8, 10);
+					String month = date.substring(4, 8);
+					String year = date.substring(23, 28);
+					newDate = month + day + "," + year;
+				}
+			}
+		});
+		buttonSendRequest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// System.out.println(newDate);
+				System.out.println(arr.get(0).status);
+				String S = (String) dropdownTimeStart.getSelectedItem();
+				String E = (String) dropdownTimeEnd.getSelectedItem();
+				Booking booking = new Booking();
+				for(Booking b : arr) {
+					booking = b;
+				}
+				
+				RoomService service = new RoomService();
+				service.insertRequest(booking, newDate, S, E);
+				
+				JOptionPane.showMessageDialog(null,"Your request has send");
+			}
+		});
+		calendarMenu.setBounds(157, 135, 116, 22);
+		frmChangeSchudal.getContentPane().add(calendarMenu);
+
+	}
+	public void setEdit(String date,String timeStart, String timeEnd,String status,String room,String size,String username){
+		
+		arr.add(new Booking(date,timeStart,timeEnd,status,new Room(room,size),new User(username)));
+		System.out.println(arr.get(0).status);
+	}
+}

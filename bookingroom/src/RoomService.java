@@ -48,7 +48,7 @@ public class RoomService {
 			if (read.status.equals("false")) {///////////////////////// ****
 				if (room.room.equals("") || room.room.equals(read.room.room)) {
 					if (room.size.equals("") || room.size.equals(read.room.size)) {
-						if (date.equals(read.date)) {
+						if (date.equals(read.date)|| date.equals("")) {
 							int start = 0;
 							int end = 0;
 							int dbstart = Integer.parseInt(read.timeStart.substring(0, 2));
@@ -87,7 +87,7 @@ public class RoomService {
 	    ArrayList<Booking> getRoom = new ArrayList<>();
 	    for (Booking read : roomDao.getBooking()) {
 					if (room.size.equals("") || room.size.equals(read.room.size)) {
-						if (date.equals(read.date)) {
+						if (date.equals(read.date)|| date.equals("")) {
 							int start = 0;
 							int end = 0;
 							int dbstart = Integer.parseInt(read.timeStart.substring(0, 2));
@@ -119,6 +119,18 @@ public class RoomService {
 
 	return getRoom;
 }
+	boolean updateBooking(ArrayList<Booking> arr) {
+		RoomDao a = new RoomDao();
+		boolean x = a.updateBooking(arr);
+		return x;
+		
+		
+	}
+	void insertRequest(Booking booking,String newDate,String newTimeStart,String newTimeEnd){
+		RoomDao dao = new RoomDao();
+		dao.insertRequest(booking,newDate,newTimeStart,newTimeEnd);
+	}
+
 
 
 }

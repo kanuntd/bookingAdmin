@@ -30,11 +30,15 @@ public class FormSearch extends JFrame {
 	JComboBox comboBoxTimeStart = new JComboBox();
 	JComboBox comboBoxTimeEnd = new JComboBox();
 	JDateChooser dateChooser = new JDateChooser();
-	
+	String username;
+	JPanel panellist = new JPanel();
+	final JPanel panels = new JPanel(new GridLayout(0, 1));
+	final JScrollPane scroll = new JScrollPane(panels);
+	JComboBox comboBoxSize = new JComboBox();
 	/**
 	 * Launch the application.
 	 */
-	public static void showSearch() {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
@@ -68,7 +72,7 @@ public class FormSearch extends JFrame {
 		Size.setBounds(47, 34, 46, 14);
 		panel.add(Size);
 		
-		JComboBox comboBoxSize = new JComboBox();
+		
 		comboBoxSize.setModel(new DefaultComboBoxModel(new String[] {"", "50", "100", "150", "200"}));
 		comboBoxSize.setBounds(103, 31, 55, 20);
 		panel.add(comboBoxSize);
@@ -93,15 +97,15 @@ public class FormSearch extends JFrame {
 		lblTo.setBounds(187, 123, 46, 14);
 		panel.add(lblTo);
 
-		JPanel panellist = new JPanel();
+		
 		panellist.setBackground(Color.WHITE);
 		panellist.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panellist.setBounds(21, 214, 620, 200);
 		JPanel gui = new JPanel(new BorderLayout(2, 2));
 		gui.setBounds(0, 0, 620, 200);
-		final JPanel panels = new JPanel(new GridLayout(0, 1));
+		
 		panels.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		final JScrollPane scroll = new JScrollPane(panels);
+		
 		scroll.setBounds(52, 277, 620, 200);
 		scroll.setPreferredSize(new Dimension(620, 200));
 		gui.add(scroll, BorderLayout.CENTER);
@@ -115,64 +119,7 @@ public class FormSearch extends JFrame {
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				System.out.println("UI Process");
-				RoomService roomService = new RoomService();
-				Room roomDetail = new Room(comboBoxSize.getSelectedItem().toString());
-				
-				try {
-					if(dateChooser.getDate().toLocaleString().equals("")) {
-						date="";
-					}else if(dateChooser.getDate().toLocaleString().substring(11,12).equals(" ")) {
-						date = dateChooser.getDate().toLocaleString().substring(0,11);
-					}else {
-						date = dateChooser.getDate().toLocaleString().substring(0,12);
-					}
-				} catch (Exception e) {
-					
-				}
-				System.out.println(date);
-				ArrayList<Booking> arr = roomService.getRoomAll(roomDetail,date,comboBoxTimeStart.getSelectedItem().toString(),comboBoxTimeEnd.getSelectedItem().toString());
-
-		          if (arr.isEmpty()) {
-						panels.removeAll();
-						listSearch = new ListSearch();
-					    listSearch.date.setText("------------------------Not found Room------------------------");
-						listSearch.room.setText("");
-						listSearch.size.setText("");
-						listSearch.timeStart.setText("");
-						listSearch.timeEnd.setText("");
-						listSearch.status.setText("");
-						panels.add(listSearch.pannelsearch());
-						panels.revalidate();
-						int height = (int) panels.getPreferredSize().getHeight();
-						scroll.getVerticalScrollBar().setValue(height);
-					} else {
-						panels.removeAll();
-						for (int i = 0; i < arr.size(); i++) {
-
-							room = (String) arr.get(i).room.room;
-							status = (String) arr.get(i).status;
-							size = (String) arr.get(i).room.size;
-							date = (String) arr.get(i).date;
-							timeStart = (String) arr.get(i).timeStart;
-							timeEnd = (String) arr.get(i).timeEnd;
-							    listSearch = new ListSearch();
-								listSearch.size.setText(size);
-								listSearch.date.setText(date);
-								listSearch.room.setText(room);
-								listSearch.status.setText(status);
-								listSearch.timeStart.setText(timeStart);
-								listSearch.timeEnd.setText(timeEnd);
-								panels.add(listSearch.pannelsearch());
-								panels.revalidate();
-								int height = (int) panels.getPreferredSize().getHeight();
-								scroll.getVerticalScrollBar().setValue(height);
-								
-							
-						}
-					}
-		          
+				search();
 			}
 		});
 		btnSearch.setBounds(514, 119, 89, 23);
@@ -196,5 +143,63 @@ public class FormSearch extends JFrame {
 		dateChooser.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 22));
 		dateChooser.setBounds(102, 64, 177, 34);
 		panel.add(dateChooser);
+	}
+	public void search() {
+		RoomService roomService = new RoomService();
+		Room roomDetail = new Room(comboBoxSize.getSelectedItem().toString());
+		
+		try {
+			if(dateChooser.getDate().toLocaleString().equals("")) {
+				date="";
+			}else if(dateChooser.getDate().toLocaleString().substring(11,12).equals(" ")) {
+				date = dateChooser.getDate().toLocaleString().substring(0,11);
+			}else {
+				date = dateChooser.getDate().toLocaleString().substring(0,12);
+			}
+		} catch (Exception e) {
+			
+		}
+		System.out.println(date);
+		ArrayList<Booking> arr = roomService.getRoomAll(roomDetail,date,comboBoxTimeStart.getSelectedItem().toString(),comboBoxTimeEnd.getSelectedItem().toString());
+
+          if (arr.isEmpty()) {
+				panels.removeAll();
+				listSearch = new ListSearch();
+			    listSearch.date.setText("------------------------Not found Room------------------------");
+				listSearch.room.setText("");
+				listSearch.size.setText("");
+				listSearch.timeStart.setText("");
+				listSearch.timeEnd.setText("");
+				listSearch.status.setText("");
+				panels.add(listSearch.pannelsearch());
+				panels.revalidate();
+				int height = (int) panels.getPreferredSize().getHeight();
+				scroll.getVerticalScrollBar().setValue(height);
+			} else {
+				panels.removeAll();
+				for (int i = 0; i < arr.size(); i++) {
+
+					room = (String) arr.get(i).room.room;
+					status = (String) arr.get(i).status;
+					size = (String) arr.get(i).room.size;
+					date = (String) arr.get(i).date;
+					timeStart = (String) arr.get(i).timeStart;
+					timeEnd = (String) arr.get(i).timeEnd;
+					    listSearch = new ListSearch();
+						listSearch.size.setText(size);
+						listSearch.date.setText(date);
+						listSearch.room.setText(room);
+						listSearch.status.setText(status);
+						listSearch.timeStart.setText(timeStart);
+						listSearch.timeEnd.setText(timeEnd);
+						panels.add(listSearch.pannelsearch());
+						panels.revalidate();
+						int height = (int) panels.getPreferredSize().getHeight();
+						scroll.getVerticalScrollBar().setValue(height);
+						
+					
+				}
+			}
+          
 	}
 }

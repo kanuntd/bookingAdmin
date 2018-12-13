@@ -5,6 +5,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.plaf.synth.SynthScrollBarUI;
 
@@ -15,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class ListSearch extends JPanel {
+	String username = "";
 	JPanel pannel = new JPanel();
 	JLabel room;
 	JLabel size;
@@ -24,26 +26,29 @@ public class ListSearch extends JPanel {
 	JLabel status;
 	JCheckBox status2;
 	
-	static ArrayList<Booking> arr1 = new ArrayList<>();;
+	static ArrayList<Booking> arr0 = new ArrayList<>();
 	public ListSearch() {
 		pannel.setBackground(Color.WHITE);
 		status2 = new JCheckBox("");
+	
 		status2.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("SelectBooking Process");
+			public void mouseClicked(MouseEvent arg0) {			
 				boolean isSelected = status2.isSelected();
-				if (isSelected) {
+				if (isSelected == true) {
 					
-					System.out.println(room.getText() + " " + size.getText() + " " + date.getText() + " "
-							+ timeStart.getText());
-//					arr1.add(new Booking(size.getText(), date.getText(), timeStart.getText(), timeEnd.getText(),
-//							room.getText(), ""));
-                      //				   RoomService.updateBooking(arr1);
+					
+					Room arr = new Room();
+					arr.size = size.getText();
+					User arr1 = new User();
+					arr1.setUsername(username);
+				  
+					System.out.println(arr1.getUsername());
+				    arr0.add(new Booking(room.getText(),date.getText(),timeStart.getText(),timeEnd.getText(),status.getText(),arr.size,arr1.getUsername()));
+  
 				} else {
-					
-
-					// System.out.println(arr1.get(0).room);
+					arr0.clear();
+                   System.out.println("cas");
 				}
 			}
 		});
@@ -100,14 +105,38 @@ public class ListSearch extends JPanel {
 	}
 
 	public void getBooking(JButton btnBooking) {
-
+         
+         
 		btnBooking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("booking Process");
-				for(int i = 0 ; i<arr1.size(); i++) {
-					System.out.println(arr1.get(i).room + " " + arr1.get(i).timeStart);
+				
+								//System.out.println("booking Process");
+				boolean a;
+				for(int i = 0 ; i<arr0.size(); i++) {
+					if(arr0.get(i).status.equals("false")) {
+					  
+						////
+				         JOptionPane.showMessageDialog(null,"You can not booking");
+				         break;
+					}else {
+					
+					RoomService s= new RoomService();
+					 a = s.updateBooking(arr0);
+					
+				  }
+
+					 if(a) {
+						  /////
+						 JOptionPane.showMessageDialog(null,"You can booking");
+						
+					 }else {
+						 JOptionPane.showMessageDialog(null,"You can not booking");
+					 }
+					
+					
+					
 				}
-                
+                System.out.println(username);
 			
 			}
 		});

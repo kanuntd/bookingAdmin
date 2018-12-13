@@ -39,11 +39,15 @@ public class FormHistory extends JFrame{
 	JPanel panel_3 = new JPanel();
 	JPanel panel_4 = new JPanel();
 	JPanel panel_5 = new JPanel();
+	JPanel panellist = new JPanel();
+	JPanel gui = new JPanel(new BorderLayout(2, 2));
+	final JPanel panel = new JPanel(new GridLayout(0, 1));
+	final JScrollPane scroll = new JScrollPane(panel);
 
 	/**
 	 * Launch the application.
 	 */
-	public void showHistory() {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -76,15 +80,15 @@ public class FormHistory extends JFrame{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panellist = new JPanel();
+		
 		panellist.setBackground(Color.WHITE);
 		panellist.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panellist.setBounds(52, 277, 896, 360);
-		JPanel gui = new JPanel(new BorderLayout(2, 2));
+		
 		gui.setBounds(0, 0, 896, 360);
-		final JPanel panel = new JPanel(new GridLayout(0, 1));
+		
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		final JScrollPane scroll = new JScrollPane(panel);
+		
 		scroll.setBounds(52, 277, 896, 360);
 		scroll.setPreferredSize(new Dimension(415, 410));
 		gui.add(scroll, BorderLayout.CENTER);
@@ -95,7 +99,7 @@ public class FormHistory extends JFrame{
 		panellist.setVisible(false);
 		
 		comboBoxRoom.setBounds(407, 24, 177, 38);
-		comboBoxRoom.setModel(new DefaultComboBoxModel(new String[] {"R01"}));
+		comboBoxRoom.setModel(new DefaultComboBoxModel(new String[] {"R01", "R02", "R03", "R04"}));
 		comboBoxRoom.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 28));
 		comboBoxRoom.setBackground(Color.WHITE);
 		getContentPane().add(comboBoxRoom);
@@ -159,67 +163,7 @@ public class FormHistory extends JFrame{
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				RoomService service = new RoomService();
-				Room roomDetail = new Room(comboBoxRoom.getSelectedItem().toString(),comboBoxSize.getSelectedItem().toString());
-				try {
-					if(dateChooser.getDate().toLocaleString().equals("")) {
-						dateChoo="";
-					}else if(dateChooser.getDate().toLocaleString().substring(11,12).equals(" ")) {
-						dateChoo = dateChooser.getDate().toLocaleString().substring(0,11);
-					}else {
-						dateChoo = dateChooser.getDate().toLocaleString().substring(0,12);
-					}
-				} catch (Exception e) {
-					
-				}
-				
-				 System.out.println(dateChoo+"+++++++++++");
-				ArrayList<Booking> arr = service.getBooking(roomDetail, dateChoo, comboBoxTimestart.getSelectedItem().toString(), comboBoxTimeend.getSelectedItem().toString());
-				//System.out.println(arr.isEmpty()+"--------");
-				if(arr.isEmpty()) {
-					panel.removeAll();
-					ListHistory listHistory = new ListHistory();	
-					listHistory.user.setText("");
-					listHistory.room.setText("");
-					listHistory.size.setText("----------------------------- Not found Room -----------------------------");
-					listHistory.date.setText("");
-					listHistory.timeStart.setText("");
-					listHistory.timeEnd.setText("");
-					
-					panel.add(listHistory.pannelsearch());
-					panel.revalidate();
-					int height = (int) panel.getPreferredSize().getHeight();
-					scroll.getVerticalScrollBar().setValue(height);
-				}else {
-					panel.removeAll();
-				for (int i = 0; i < arr.size(); i++) {
-						user = (String) arr.get(i).user.username;
-						room = (String) arr.get(i).room.room;
-						size = (String) arr.get(i).room.size;
-						date = (String) arr.get(i).date;
-						timeStart = (String) arr.get(i).timeStart;
-						timeEnd = (String) arr.get(i).timeEnd;
-						ListHistory listHistory = new ListHistory();
-					
-					listHistory.size.setText(size);
-					listHistory.date.setText(date);
-					listHistory.room.setText(room);
-					listHistory.user.setText(user);
-					listHistory.timeStart.setText(timeStart);
-					listHistory.timeEnd.setText(timeEnd);
-					
-					panel.add(listHistory.pannelsearch());
-					panel.revalidate();
-					int height = (int) panel.getPreferredSize().getHeight();
-					scroll.getVerticalScrollBar().setValue(height);
-				}
-			}panellist.setVisible(true);
-			panel_0.setVisible(true);
-			panel_1.setVisible(true);
-			panel_2.setVisible(true);
-			panel_3.setVisible(true);
-			panel_4.setVisible(true);
-			panel_5.setVisible(true);
+				search();
 
 			}
 		});
@@ -320,6 +264,73 @@ public class FormHistory extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1003, 672);
 	}
+
+	public void search() {
+		RoomService service = new RoomService();
+		Room roomDetail = new Room(comboBoxRoom.getSelectedItem().toString(),
+				comboBoxSize.getSelectedItem().toString());
+		try {
+			if (dateChooser.getDate().toLocaleString().equals("")) {
+				dateChoo = "";
+			} else if (dateChooser.getDate().toLocaleString().substring(11, 12).equals(" ")) {
+				dateChoo = dateChooser.getDate().toLocaleString().substring(0, 11);
+			} else {
+				dateChoo = dateChooser.getDate().toLocaleString().substring(0, 12);
+			}
+		} catch (Exception e) {
+
+		}
+
+		ArrayList<Booking> arr = service.getBooking(roomDetail, dateChoo,
+				comboBoxTimestart.getSelectedItem().toString(), comboBoxTimeend.getSelectedItem().toString());
+		// System.out.println(arr.isEmpty()+"--------");
+		if (arr.isEmpty()) {
+			panel.removeAll();
+			ListHistory listHistory = new ListHistory();
+			listHistory.user.setText("");
+			listHistory.room.setText("");
+			listHistory.size.setText("----------------------------- Not found Room -----------------------------");
+			listHistory.date.setText("");
+			listHistory.timeStart.setText("");
+			listHistory.timeEnd.setText("");
+
+			panel.add(listHistory.pannelsearch());
+			panel.revalidate();
+			int height = (int) panel.getPreferredSize().getHeight();
+			scroll.getVerticalScrollBar().setValue(height);
+		} else {
+			panel.removeAll();
+			for (int i = 0; i < arr.size(); i++) {
+				user = (String) arr.get(i).user.username;
+				room = (String) arr.get(i).room.room;
+				size = (String) arr.get(i).room.size;
+				date = (String) arr.get(i).date;
+				timeStart = (String) arr.get(i).timeStart;
+				timeEnd = (String) arr.get(i).timeEnd;
+				ListHistory listHistory = new ListHistory();
+
+				listHistory.size.setText(size);
+				listHistory.date.setText(date);
+				listHistory.room.setText(room);
+				listHistory.user.setText(user);
+				listHistory.timeStart.setText(timeStart);
+				listHistory.timeEnd.setText(timeEnd);
+
+				panel.add(listHistory.pannelsearch());
+				panel.revalidate();
+				int height = (int) panel.getPreferredSize().getHeight();
+				scroll.getVerticalScrollBar().setValue(height);
+			}
+		}
+		panellist.setVisible(true);
+		panel_0.setVisible(true);
+		panel_1.setVisible(true);
+		panel_2.setVisible(true);
+		panel_3.setVisible(true);
+		panel_4.setVisible(true);
+		panel_5.setVisible(true);
+	}
+
 	class ListHistory extends JPanel {
 		JPanel pannel = new JPanel();
 		JLabel room;
@@ -335,8 +346,8 @@ public class FormHistory extends JFrame{
 			user.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
 			user.setBounds(798, 11, 100, 40);
 			pannel.add(user);
-			
-			JLabel a4 = new JLabel("                   ");
+
+			JLabel a4 = new JLabel("                                ");
 			pannel.add(a4);
 
 			room = new JLabel("New label");
@@ -344,7 +355,7 @@ public class FormHistory extends JFrame{
 			room.setBounds(52, 11, 100, 40);
 			pannel.add(room);
 
-			JLabel a = new JLabel("                    ");
+			JLabel a = new JLabel("                                 ");
 			pannel.add(a);
 
 			size = new JLabel("New label");
@@ -352,15 +363,15 @@ public class FormHistory extends JFrame{
 			size.setBounds(202, 11, 100, 40);
 			pannel.add(size);
 
-			JLabel a1 = new JLabel("                   ");
+			JLabel a1 = new JLabel("                                ");
 			pannel.add(a1);
 
 			date = new JLabel("New label");
 			date.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
 			date.setBounds(351, 11, 100, 40);
 			pannel.add(date);
-
-			JLabel a2 = new JLabel("                   ");
+ 
+			JLabel a2 = new JLabel("                                ");
 			pannel.add(a2);
 
 			timeStart = new JLabel("New label");
@@ -368,7 +379,7 @@ public class FormHistory extends JFrame{
 			timeStart.setBounds(500, 11, 100, 40);
 			pannel.add(timeStart);
 
-			JLabel a3 = new JLabel("                   ");
+			JLabel a3 = new JLabel("                                ");
 			pannel.add(a3);
 
 			timeEnd = new JLabel("New label");
@@ -376,7 +387,6 @@ public class FormHistory extends JFrame{
 			timeEnd.setBounds(649, 11, 100, 40);
 			pannel.add(timeEnd);
 
-			
 		}
 
 		JPanel pannelsearch() {

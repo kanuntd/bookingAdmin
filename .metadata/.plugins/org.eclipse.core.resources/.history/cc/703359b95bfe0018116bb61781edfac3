@@ -1,0 +1,37 @@
+import java.util.ArrayList;
+
+public class ConfirmService {
+	public static ArrayList<Request> getRequest() { 
+		RoomDao dao = new RoomDao();
+		return dao.getRequest();
+	}
+	
+	public static void updateBooking(String roomNumber,
+	String size,
+	String userName,
+	String dateOld,
+	String timeStartOld,
+	String timeEndOld,
+	String dateNew,
+	String timeStartNew,
+	String timeEndNew)
+	{
+		Room room = new Room(roomNumber, size);
+		ArrayList<Booking> arr = new ArrayList<>();
+		arr = RoomService.searchBooking(room, dateNew, timeStartNew, timeEndNew);
+//		System.out.println(arr.size());
+//		System.out.println(arr.get(0).date);
+//		System.out.println(arr.get(0).timeEnd);
+//		System.out.println(arr.get(0).timeStart);
+//		System.out.println(arr.get(0).room.room);
+		if(arr.get(0).status.equals("true")) {
+			RoomDao dao = new RoomDao();
+			dao.updateEditBooking(roomNumber, size, userName, dateOld, timeStartOld, timeEndOld, dateNew, timeStartNew, timeEndNew);
+			//update booking
+			//delete request
+			//show อนุมัติสำเร็จ
+	}else {
+			//delete request
+	}
+	}
+}

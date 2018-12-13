@@ -19,15 +19,18 @@
 <fullyQualifiedTypeName name="com.mongodb.client.model.Collation"/>
 <fullyQualifiedTypeName name="com.mongodb.client.FindIterable"/>
 <fullyQualifiedTypeName name="java.util.Iterator"/>
-<fullyQualifiedTypeName name="com.mongodb.BasicDBObject"/>
 <fullyQualifiedTypeName name="com.mongodb.DBCursor"/>
 <fullyQualifiedTypeName name="com.mongodb.DBObject"/>
-<fullyQualifiedTypeName name="org.bson.Document"/>
 <fullyQualifiedTypeName name="java.lang.reflect.Constructor"/>
 <fullyQualifiedTypeName name="java.nio.file.attribute.UserPrincipalLookupService"/>
 <fullyQualifiedTypeName name="Room"/>
 <fullyQualifiedTypeName name="User"/>
-<fullyQualifiedTypeName name="RoomDao"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="Booking"/>
+<fullyQualifiedTypeName name="RoomDao"/>
+<fullyQualifiedTypeName name="com.mongodb.BasicDBObject"/>
+<fullyQualifiedTypeName name="org.bson.Document"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+<fullyQualifiedTypeName name="EditBooking"/>
 </qualifiedTypeNameHistroy>

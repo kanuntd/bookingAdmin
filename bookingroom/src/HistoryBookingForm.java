@@ -1,0 +1,139 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Date;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+
+
+public class HistoryBookingForm extends JFrame {
+
+	private JPanel contentPane;
+	public String room, date, timeStart, timeEnd,size,status;
+
+	public String username = "";
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HistoryBookingForm frame = new HistoryBookingForm();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public HistoryBookingForm() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 700, 500);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(85, 107, 47));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JPanel panellist = new JPanel();
+		panellist.setBackground(Color.WHITE);
+		panellist.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panellist.setBounds(21, 214, 620, 200);
+		JPanel gui = new JPanel(new BorderLayout(2, 2));
+		gui.setBounds(0, 0, 620, 200);
+		final JPanel panels = new JPanel(new GridLayout(0, 1));
+		panels.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		final JScrollPane scroll = new JScrollPane(panels);
+		scroll.setBounds(52, 277, 620, 200);
+		scroll.setPreferredSize(new Dimension(620, 200));
+		gui.add(scroll, BorderLayout.CENTER);
+
+		
+		panellist.setLayout(null);
+		panellist.add(gui);
+		contentPane.add(panellist);
+		
+		
+		JButton btnSearch = new JButton("Search");
+		btnSearch.setBounds(552, 140, 89, 23);
+		contentPane.add(btnSearch);
+		
+		JLabel lblCheckroombooking = new JLabel("CheckRoomBooking");
+		lblCheckroombooking.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblCheckroombooking.setBounds(21, 96, 254, 41);
+		contentPane.add(lblCheckroombooking);
+		
+		
+	
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(username);
+				HistoryBookingService historybooking = new HistoryBookingService();
+				ArrayList<Booking> arr = historybooking.getHistoryBooking(username);
+		          //System.out.println(arr.size());
+		          if (arr.isEmpty()) {
+						panels.removeAll();
+						ListHistoryBooking listHistoryBooking = new ListHistoryBooking();
+						listHistoryBooking.username = username;
+						listHistoryBooking.room.setText("");
+						listHistoryBooking.size.setText("");
+						listHistoryBooking.date.setText("------------------------Not found Room------------------------");
+						listHistoryBooking.timeStart.setText("");
+						listHistoryBooking.timeEnd.setText("");
+						
+						panels.add(listHistoryBooking.pannelhistorybooking());
+						panels.revalidate();
+						int height = (int) panels.getPreferredSize().getHeight();
+						scroll.getVerticalScrollBar().setValue(height);
+					} else {
+						panels.removeAll();
+						for (int i = 0; i < arr.size(); i++) {
+
+							room = (String) arr.get(i).room.room;
+							size = (String) arr.get(i).room.size;
+							date = (String) arr.get(i).date;
+							timeStart = (String) arr.get(i).timeStart;
+							timeEnd = (String) arr.get(i).timeEnd;
+							
+							ListHistoryBooking listHistoryBooking = new ListHistoryBooking();
+							listHistoryBooking.username = username;
+							listHistoryBooking.room.setText(room);
+							listHistoryBooking.size.setText(size);
+							listHistoryBooking.date.setText(date);
+							listHistoryBooking.timeStart.setText(timeStart);
+							listHistoryBooking.timeEnd.setText(timeEnd);
+					
+								panels.add(listHistoryBooking.pannelhistorybooking());
+								panels.revalidate();
+								int height = (int) panels.getPreferredSize().getHeight();
+								scroll.getVerticalScrollBar().setValue(height);
+						    
+						}
+					}
+		          
+			}
+		});
+	}
+}
