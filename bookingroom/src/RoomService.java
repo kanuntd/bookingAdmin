@@ -36,9 +36,6 @@ public class RoomService {
 	}
 
 
-	public static void insertBooking() {
-
-	}
 	
 
 	public static ArrayList<Booking> getBooking(Room room, String date, String timestart, String timeEnd) {
@@ -126,11 +123,9 @@ public class RoomService {
 		
 		
 	}
-	void insertRequest(Booking booking,String newDate,String newTimeStart,String newTimeEnd){
+	void insertRequest(ArrayList<Booking> arr2,String newDate,String newTimeStart,String newTimeEnd){
 		RoomDao dao = new RoomDao();
-		dao.insertRequest(booking,newDate,newTimeStart,newTimeEnd);
+		dao.insertRequest(arr2,newDate,newTimeStart,newTimeEnd);
 	}
-
-
 
 }

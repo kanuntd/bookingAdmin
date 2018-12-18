@@ -8,45 +8,47 @@ public class ConfirmService {
 		return dao.getRequest();
 	}
 	
-	public static void updateEditBooking(String roomNumber,
-	String size,
-	String userName,
-	String dateOld,
-	String timeStartOld,
-	String timeEndOld,
-	String dateNew,
-	String timeStartNew,
-	String timeEndNew)
-	{
-		Room room = new Room(roomNumber, size);
-		ArrayList<Booking> arr = new ArrayList<>();
-		arr = searchBooking(room, dateNew, timeStartNew, timeEndNew);
-		ConfirmStatus confirmStatus = new ConfirmStatus();
-//		System.out.println(arr.size());
-//		System.out.println(arr.get(0).date);
-//		System.out.println(arr.get(0).timeEnd);
-//		System.out.println(arr.get(0).timeStart);
-//		System.out.println(arr.get(0).room.room);
-		if(arr.get(0).status.equals("true")) {
-			RoomDao dao = new RoomDao();
-			//update booking
-			dao.updateEditBooking(roomNumber, size, userName, dateOld, timeStartOld, timeEndOld, dateNew, timeStartNew, timeEndNew);
-			//delete request
-			dao.deleteRequest(roomNumber, size, userName, dateOld, timeStartOld, timeEndOld, dateNew, timeStartNew, timeEndNew);
-			//show อนุมัติสำเร็จ
-			
-			JOptionPane.showMessageDialog(null, "Approve success");
-			confirmStatus.showTable();
-			
-		}else {
-			//delete request
-			RoomDao dao = new RoomDao();
-			dao.deleteRequest(roomNumber, size, userName, dateOld, timeStartOld, timeEndOld, dateNew, timeStartNew, timeEndNew);
-			
-			JOptionPane.showMessageDialog(null, "Approve faild");
-			confirmStatus.showTable();
-		}
-	}
+	public static boolean updateEditBooking(String roomNumber,
+			String size,
+			String userName,
+			String dateOld,
+			String timeStartOld,
+			String timeEndOld,
+			String dateNew,
+			String timeStartNew,
+			String timeEndNew)
+			{
+				Room room = new Room(roomNumber, size);
+				ArrayList<Booking> arr = new ArrayList<>();
+				arr = searchBooking(room, dateNew, timeStartNew, timeEndNew);
+				ConfirmStatus confirmStatus = new ConfirmStatus();
+//				System.out.println(arr.size());
+//				System.out.println(arr.get(0).date);
+//				System.out.println(arr.get(0).timeEnd);
+//				System.out.println(arr.get(0).timeStart);
+//				System.out.println(arr.get(0).room.room);
+				if(arr.get(0).status.equals("true")) {
+					RoomDao dao = new RoomDao();
+					//update booking
+					dao.updateEditBooking(roomNumber, size, userName, dateOld, timeStartOld, timeEndOld, dateNew, timeStartNew, timeEndNew);
+					//delete request
+					dao.deleteRequest(roomNumber, size, userName, dateOld, timeStartOld, timeEndOld, dateNew, timeStartNew, timeEndNew);
+					//show อนุมัติสำเร็จ
+					//confirmStatus.showTable();
+					JOptionPane.showMessageDialog(null, "Approve success");
+					return true;
+					//System.out.println("Go");			
+					
+				}else {
+					//delete request
+					RoomDao dao = new RoomDao();
+					dao.deleteRequest(roomNumber, size, userName, dateOld, timeStartOld, timeEndOld, dateNew, timeStartNew, timeEndNew);
+					confirmStatus.showTable();
+					JOptionPane.showMessageDialog(null, "Approve fail");
+					return false;	
+				}
+				
+			}
 	
 	public static ArrayList<Booking> searchBooking(Room room, String date, String timestart, String timeEnd) {
 		RoomDao dao = new RoomDao();

@@ -158,17 +158,17 @@ public class RoomDao {
 
 	}
 
-	void insertRequest(Booking booking, String newDate, String newTimeStart, String newTimeEnd) {
+	void insertRequest(ArrayList<Booking> booking, String newDate, String newTimeStart, String newTimeEnd) {
 		String date = "";
 		MongoCollection<Document> collection = database.getCollection("Request");
 
-		String json = "{\"Booking\": [\n" + "        {\n" + "            \"date\": \"" + booking.date + "\",\n"
-				+ "            \"timeStart\": \"" + booking.timeStart + "\",\n" + "            \"timeEnd\": \""
-				+ booking.timeEnd + "\",\n" + "            \"status\": \"" + booking.status + "\",\n"
+		String json = "{\"Booking\": [\n" + "        {\n" + "            \"date\": \"" + booking.get(0).date + "\",\n"
+				+ "            \"timeStart\": \"" + booking.get(0).timeStart + "\",\n" + "            \"timeEnd\": \""
+				+ booking.get(0).timeEnd + "\",\n" + "            \"status\": \"" + booking.get(0).status + "\",\n"
 				+ "            \"Room\": [\n" + "                {\n" + "                    \"room\": \""
-				+ booking.room.room + "\",\n" + "                    \"size\": \"" + booking.room.size + "\"\n"
+				+ booking.get(0).room.room + "\",\n" + "                    \"size\": \"" + booking.get(0).room.size + "\"\n"
 				+ "                }\n" + "            ],\n" + "            \"User\": [\n" + "                {\n"
-				+ "                    \"username\": \"" + booking.user.username + "\"\n" + "                }\n"
+				+ "                    \"username\": \"" + booking.get(0).user.username + "\"\n" + "                }\n"
 				+ "            ]\n" + "        }\n" + "    ],\n" + "    \"newDate\": \"" + newDate + "\",\n"
 				+ "    \"newTimeStart\": \"" + newTimeStart + "\",\n" + "    \"newTimeEnd\": \"" + newTimeEnd + "\"}";
 		System.out.println(json);

@@ -63,10 +63,7 @@ public class ListHistoryBooking extends JPanel {
 		JLabel a4 = new JLabel("                         ");
 		pannel.add(a4);
 
-//		status = new JLabel("New label");
-//		status.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
-//		status.setBounds(649, 11, 100, 40);
-//		pannel.add(status);
+
 
 		edit = new JButton("Edit");
 		edit.addMouseListener(new MouseAdapter() {
@@ -74,23 +71,20 @@ public class ListHistoryBooking extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				ArrayList<Booking> arr = new ArrayList<>();
 				EditBooking ed = new EditBooking();
-				//System.out.println(username);
-				// ed.setEdit(date.getText(), timeStart.getText(), timeEnd.getText(), "false",
-				// room.getText(), size.getText(), username);
-//				ed.date1 = date.getText();
-//				ed.timeStart1 = timeStart.getText();
-//				ed.timeEnd1 = timeEnd.getText();
-//				ed.status1 = "fasle";
-//				ed.room1 = room.getText();
-//				ed.size1 = size.getText();
-//				ed.username1 = username;
-				// ed.arr.add(new
-				// Booking(date.getText(),timeStart.getText(),timeEnd.getText(),"false",new
-				// Room(room.getText(),size.getText()),new User(username)));
-				ed.show(date.getText(),timeStart.getText(),timeEnd.getText(),"false",room.getText(),size.getText(),username);
-
+				
+				ed.setDate1(date.getText());
+				ed.setRoom1(room.getText());
+				ed.setSize1(size.getText());
+				ed.setStatus1("false");
+				ed.setTimeEnd1(timeEnd.getText());
+				ed.setTimeStart1(timeStart.getText());
+				ed.setUsername1(username);
+				ed.frmChangeSchudal.setVisible(true);
+				setVisible(false);
+ 
 			}
 		});
+		edit.setBackground(new Color(204, 153, 102));
 		edit.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
 		edit.setBounds(798, 11, 100, 40);
 		pannel.add(edit);
@@ -124,3 +118,5 @@ public class ListHistoryBooking extends JPanel {
 	}
 
 }
+		
+		

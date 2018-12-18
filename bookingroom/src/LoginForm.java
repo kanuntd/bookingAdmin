@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
 
 public class LoginForm {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField username;
 	private JTextField password;
 
@@ -54,48 +54,56 @@ public class LoginForm {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 700, 500);
+		frame.setBounds(100, 100, 900, 653);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(0, 0, 684, 461);
+		panel_1.setBackground(new Color(255, 204, 51));
+		panel_1.setBounds(0, 0, 882, 606);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 73, 664, 201);
+		panel.setBackground(new Color(255, 204, 51));
+		panel.setBounds(56, 131, 777, 223);
 		panel_1.add(panel);
 		panel.setForeground(Color.GRAY);
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel.setLayout(null);
 		
 		username = new JTextField();
-		username.setBounds(257, 40, 225, 20);
+		username.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 30));
+		username.setBounds(344, 66, 225, 36);
 		panel.add(username);
 		username.setColumns(10);
 		
 		password = new JTextField();
-		password.setBounds(257, 89, 225, 20);
+		password.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 30));
+		password.setBounds(344, 115, 225, 36);
 		panel.add(password);
 		password.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Username");
-		lblNewLabel.setFont(new Font("Angsana New", Font.BOLD, 24));
-		lblNewLabel.setBounds(127, 40, 91, 17);
+		lblNewLabel.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 30));
+		lblNewLabel.setBounds(182, 66, 123, 36);
 		panel.add(lblNewLabel);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setFont(new Font("Angsana New", Font.BOLD, 24));
-		lblPassword.setBounds(127, 89, 91, 17);
+		lblPassword.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 30));
+		lblPassword.setBounds(182, 115, 123, 36);
 		panel.add(lblPassword);
 		
 		JButton btnNewButton = new JButton("Login");
+		btnNewButton.setBackground(new Color(204, 153, 102));
+		btnNewButton.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 30));
 		
-		btnNewButton.setBounds(585, 427, 89, 23);
+		btnNewButton.setBounds(445, 385, 132, 39);
 		panel_1.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Register");
+		btnNewButton_1.setBackground(new Color(204, 153, 102));
+		btnNewButton_1.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 30));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegisterForm re = new RegisterForm();
@@ -103,7 +111,7 @@ public class LoginForm {
 				frame.setVisible(false);
 			}
 		});
-		btnNewButton_1.setBounds(480, 427, 89, 23);
+		btnNewButton_1.setBounds(288, 385, 132, 39);
 		panel_1.add(btnNewButton_1);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override

@@ -43,6 +43,7 @@ public class FormHistory extends JFrame{
 	JPanel gui = new JPanel(new BorderLayout(2, 2));
 	final JPanel panel = new JPanel(new GridLayout(0, 1));
 	final JScrollPane scroll = new JScrollPane(panel);
+	private final JButton btnBack = new JButton("BACK");
 
 	/**
 	 * Launch the application.
@@ -250,16 +251,24 @@ public class FormHistory extends JFrame{
 		lblTimeend.setBounds(67, 13, 83, 32);
 		panel_5.add(lblTimeend);
 		
-		panel_0.setVisible(false);
-		panel_1.setVisible(false);
-		panel_2.setVisible(false);
-		panel_3.setVisible(false);
-		panel_4.setVisible(false);
-		panel_5.setVisible(false);
+		
 		dateChooser.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 22));
 		
 		dateChooser.setBounds(407, 126, 177, 34);
 		contentPane.add(dateChooser);
+		btnBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ConfirmStatus  con = new ConfirmStatus();
+				con.frame.setVisible(true);
+				setVisible(false);
+			}
+		});
+		btnBack.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 25));
+		btnBack.setBackground(new Color(204, 204, 153));
+		btnBack.setBounds(12, 13, 87, 25);
+		
+		contentPane.add(btnBack);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1003, 672);
@@ -323,12 +332,7 @@ public class FormHistory extends JFrame{
 			}
 		}
 		panellist.setVisible(true);
-		panel_0.setVisible(true);
-		panel_1.setVisible(true);
-		panel_2.setVisible(true);
-		panel_3.setVisible(true);
-		panel_4.setVisible(true);
-		panel_5.setVisible(true);
+		
 	}
 
 	class ListHistory extends JPanel {

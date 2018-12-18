@@ -52,53 +52,53 @@ public class ListSearch extends JPanel {
 				}
 			}
 		});
-		status2.setFont(new Font("Angsana New", Font.PLAIN, 27));
+		status2.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
 		status2.setBounds(798, 11, 100, 40);
 		pannel.add(status2);
 
 		room = new JLabel("New label");
-		room.setFont(new Font("Angsana New", Font.PLAIN, 27));
+		room.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
 		room.setBounds(52, 11, 100, 40);
 		pannel.add(room);
 
-		JLabel a = new JLabel("                         ");
+		JLabel a = new JLabel("                    ");
 		a.setFont(new Font("Angsana New", Font.PLAIN, 27));
 		pannel.add(a);
 
 		size = new JLabel("New label");
-		size.setFont(new Font("Angsana New", Font.PLAIN, 27));
+		size.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
 		size.setBounds(202, 11, 100, 40);
 		pannel.add(size);
 
-		JLabel a1 = new JLabel("                         ");
+		JLabel a1 = new JLabel("                    ");
 		pannel.add(a1);
 
 		date = new JLabel("New label");
-		date.setFont(new Font("Angsana New", Font.PLAIN, 27));
+		date.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
 		date.setBounds(351, 11, 100, 40);
 		pannel.add(date);
 
-		JLabel a2 = new JLabel("                         ");
+		JLabel a2 = new JLabel("                    ");
 		pannel.add(a2);
 
 		timeStart = new JLabel("New label");
-		timeStart.setFont(new Font("Angsana New", Font.PLAIN, 27));
+		timeStart.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
 		timeStart.setBounds(500, 11, 100, 40);
 		pannel.add(timeStart);
 
-		JLabel a3 = new JLabel("                         ");
+		JLabel a3 = new JLabel("                    ");
 		pannel.add(a3);
 
 		timeEnd = new JLabel("New label");
-		timeEnd.setFont(new Font("Angsana New", Font.PLAIN, 27));
+		timeEnd.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
 		timeEnd.setBounds(649, 11, 100, 40);
 		pannel.add(timeEnd);
 
-		JLabel a4 = new JLabel("                         ");
+		JLabel a4 = new JLabel("                    ");
 		pannel.add(a4);
 
 		status = new JLabel("New label");
-		status.setFont(new Font("Angsana New", Font.PLAIN, 27));
+		status.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
 		status.setBounds(798, 11, 100, 40);
 		pannel.add(status);
 
@@ -116,7 +116,7 @@ public class ListSearch extends JPanel {
 					if(arr0.get(i).status.equals("false")) {
 					  
 						////
-				         JOptionPane.showMessageDialog(null,"You can not booking");
+				         JOptionPane.showMessageDialog(null,"You not booking room");
 				         break;
 					}else {
 					
@@ -127,10 +127,10 @@ public class ListSearch extends JPanel {
 
 					 if(a) {
 						  /////
-						 JOptionPane.showMessageDialog(null,"You can booking");
+						 JOptionPane.showMessageDialog(null,"You can booking room sucessful");
 						
 					 }else {
-						 JOptionPane.showMessageDialog(null,"You can not booking");
+						 JOptionPane.showMessageDialog(null,"You not booking room");
 					 }
 					
 					

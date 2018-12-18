@@ -12,10 +12,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JPanel;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class ConfirmStatus {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTable table;
 	String roomNumber = "";
 	String size = "";
@@ -55,24 +60,37 @@ public class ConfirmStatus {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().addKeyListener(new KeyAdapter() {
+		frame = new JFrame();		
+		frame.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent arg0) {
-				if(arg0.getKeyCode() == KeyEvent.VK_R) {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_R) {
+					System.out.println("fuck");
 					showTable();
 				}
 			}
 		});
+		frame.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				showTable();
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				showTable();
+			}
+		});
+		frame.getContentPane().setBackground(new Color(153, 153, 102));
 		frame.setBounds(100, 100, 1003, 672);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JScrollPane scrollPaneTable = new JScrollPane();
-		scrollPaneTable.setBounds(37, 35, 884, 362);
+		scrollPaneTable.setBounds(37, 66, 884, 389);
 		frame.getContentPane().add(scrollPaneTable);
 
 		table = new JTable();
+		table.setFont(new Font("Gill Sans MT Condensed", Font.PLAIN, 14));
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {		
@@ -94,12 +112,15 @@ public class ConfirmStatus {
 		scrollPaneTable.setViewportView(table);
 
 		JButton buttonApprove = new JButton("Approve");
+		buttonApprove.setBounds(563, 523, 150, 57);
+		buttonApprove.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 40));
+		buttonApprove.setBackground(new Color(204, 204, 153));
 		buttonApprove.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 //				ConfirmService confirmService = new ConfirmService();
 				
-				ConfirmService.updateEditBooking(roomNumber,
+				boolean f = ConfirmService.updateEditBooking(roomNumber,
 						size,
 						userName,
 						dateOld,
@@ -108,18 +129,51 @@ public class ConfirmStatus {
 						dateNew,
 						timeStartNew,
 						timeEndNew);
+		
+				if(f) {
+					
+					showTable();
+			     }else {
+			    	 showTable();
+			     }
 			}
+		
 		});
-		buttonApprove.setBounds(646, 568, 118, 23);
 		frame.getContentPane().add(buttonApprove);
 
 		JButton butttonDisapprove = new JButton("DisApprove");
-		butttonDisapprove.setBounds(797, 568, 124, 23);
+		butttonDisapprove.setBounds(723, 526, 191, 51);
+		butttonDisapprove.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 40));
+		butttonDisapprove.setBackground(new Color(204, 204, 153));
 		frame.getContentPane().add(butttonDisapprove);
 
 		JButton btnHistory = new JButton("History");
-		btnHistory.setBounds(41, 568, 109, 23);
+		btnHistory.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				FormHistory his = new FormHistory();
+				his.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
+		btnHistory.setBounds(203, 523, 159, 57);
+		btnHistory.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 40));
+		btnHistory.setBackground(new Color(204, 204, 153));
 		frame.getContentPane().add(btnHistory);
+		
+		JButton btnLogout = new JButton("Logout");
+		btnLogout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				LoginForm login = new LoginForm();
+				login.frame.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
+		btnLogout.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 40));
+		btnLogout.setBackground(new Color(204, 204, 153));
+		btnLogout.setBounds(37, 524, 142, 54);
+		frame.getContentPane().add(btnLogout);
 		
 		showTable();
 		
@@ -128,6 +182,7 @@ public class ConfirmStatus {
 		////////////////////////////////////////////////////////////////////
 		String[] columnNames = { "room", "size", "userName", "dateOld", "timeStartOle", "timeEndOle", "dateNew", "timeStartNew", "timeEndNew" };
 		DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+		System.out.println(555);
 		for (Request read : ConfirmService.getRequest()) {
 			roomNumber = read.booking.room.room;
 			size = read.booking.room.size;
@@ -139,8 +194,10 @@ public class ConfirmStatus {
 			timeStartNew = read.newTimeStart;
 			timeEndNew = read.newTimeEnd;
 			model.addRow(new String[] { roomNumber, size, userName, dateOld, timeStartOld, timeEndOld , dateNew, timeStartNew, timeEndNew });
-		}
+		}		
+
 		table.setModel(model);
+		System.out.println(table.getRowCount());
 		////////////////////////////////////////////////////////////////////
 	}
 }

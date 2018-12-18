@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -21,14 +22,20 @@ import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class HistoryBookingForm extends JFrame {
 
 	private JPanel contentPane;
 	public String room, date, timeStart, timeEnd,size,status;
-
 	public String username = "";
+	JPanel panel_1 = new JPanel();
+	JPanel panel_2 = new JPanel();
+	JPanel panel_3 = new JPanel();
+	JPanel panel_4 = new JPanel();
+	JPanel panel_5 = new JPanel();
 	/**
 	 * Launch the application.
 	 */
@@ -50,9 +57,9 @@ public class HistoryBookingForm extends JFrame {
 	 */
 	public HistoryBookingForm() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 700, 500);
+		setBounds(100, 100, 1003,672 );
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(85, 107, 47));
+		contentPane.setBackground(new Color(255, 204, 51));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -60,9 +67,9 @@ public class HistoryBookingForm extends JFrame {
 		JPanel panellist = new JPanel();
 		panellist.setBackground(Color.WHITE);
 		panellist.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panellist.setBounds(21, 214, 620, 200);
+		panellist.setBounds(21, 214, 945, 400);
 		JPanel gui = new JPanel(new BorderLayout(2, 2));
-		gui.setBounds(0, 0, 620, 200);
+		gui.setBounds(0, 0, 945, 400);
 		final JPanel panels = new JPanel(new GridLayout(0, 1));
 		panels.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		final JScrollPane scroll = new JScrollPane(panels);
@@ -77,13 +84,107 @@ public class HistoryBookingForm extends JFrame {
 		
 		
 		JButton btnSearch = new JButton("Search");
-		btnSearch.setBounds(552, 140, 89, 23);
+		btnSearch.setBackground(new Color(204, 153, 102));
+		btnSearch.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		btnSearch.setBounds(854, 96, 112, 41);
 		contentPane.add(btnSearch);
 		
+		
+		panel_1.setBackground(new Color(153, 102, 51));
+		panel_1.setAlignmentY(0.0f);
+		panel_1.setBounds(21, 158, 140, 58);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblRoom_1 = new JLabel("ROOM");
+		lblRoom_1.setForeground(Color.WHITE);
+		lblRoom_1.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		lblRoom_1.setBounds(35, 11, 67, 32);
+		panel_1.add(lblRoom_1);
+		
+		
+		panel_2.setBackground(new Color(153, 102, 51));
+		panel_2.setAlignmentY(0.0f);
+		panel_2.setBounds(155, 158, 100, 58);
+		getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel lblSize = new JLabel("SIZE");
+		lblSize.setForeground(Color.WHITE);
+		lblSize.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		lblSize.setBounds(34, 11, 56, 32);
+		panel_2.add(lblSize);
+		
+		
+		panel_3.setBackground(new Color(153, 102, 51));
+		panel_3.setAlignmentY(0.0f);
+		panel_3.setBounds(254, 158, 210, 58);
+		getContentPane().add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel lblDate = new JLabel("DATE");
+		lblDate.setForeground(Color.WHITE);
+		lblDate.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		lblDate.setBounds(86, 11, 56, 32);
+		panel_3.add(lblDate);
+		
+		
+		panel_4.setBackground(new Color(153, 102, 51));
+		panel_4.setAlignmentY(0.0f);
+		panel_4.setBounds(463, 158, 186, 58);
+		getContentPane().add(panel_4);
+		panel_4.setLayout(null);
+		
+		JLabel lblTimestart = new JLabel("START");
+		lblTimestart.setForeground(Color.WHITE);
+		lblTimestart.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		lblTimestart.setBounds(65, 11, 83, 32);
+		panel_4.add(lblTimestart);
+		
+		
+		panel_5.setBackground(new Color(153, 102, 51));
+		panel_5.setAlignmentY(0.0f);
+		panel_5.setBounds(645, 158, 156, 58);
+		getContentPane().add(panel_5);
+		panel_5.setLayout(null);
+		
+		JLabel lblTimeend = new JLabel("END");
+		lblTimeend.setForeground(Color.WHITE);
+		lblTimeend.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		lblTimeend.setBounds(61, 13, 83, 32);
+		panel_5.add(lblTimeend);
+		
 		JLabel lblCheckroombooking = new JLabel("CheckRoomBooking");
-		lblCheckroombooking.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		lblCheckroombooking.setBounds(21, 96, 254, 41);
+		lblCheckroombooking.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 40));
+		lblCheckroombooking.setBounds(21, 73, 332, 67);
 		contentPane.add(lblCheckroombooking);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(new Color(153, 102, 51));
+		panel.setAlignmentY(0.0f);
+		panel.setBounds(799, 158, 167, 58);
+		contentPane.add(panel);
+		
+		JLabel lblEdit = new JLabel("EDIT");
+		lblEdit.setForeground(Color.WHITE);
+		lblEdit.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 25));
+		lblEdit.setBounds(33, 11, 83, 32);
+		panel.add(lblEdit);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				HomeClientForm home = new HomeClientForm();
+				home.setVisible(true);
+				setVisible(false);
+			}
+		});
+		btnBack.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 20));
+		btnBack.setBackground(new Color(204, 153, 102));
+		btnBack.setBounds(21, 13, 91, 33);
+		contentPane.add(btnBack);
 		
 		
 	

@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Font;
 
 public class HomeClientForm extends JFrame {
 
@@ -34,14 +36,18 @@ public class HomeClientForm extends JFrame {
 	 */
 	public HomeClientForm() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 700, 500);
+		setBounds(100, 100, 900, 653);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 204, 51));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JButton Showhistory = new JButton("HISTORY");
-		Showhistory.setBounds(169, 138, 89, 87);
+		Showhistory.setBackground(new Color(153, 102, 51));
+		Showhistory.setForeground(new Color(255, 255, 255));
+		Showhistory.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 30));
+		Showhistory.setBounds(205, 235, 169, 87);
 		contentPane.add(Showhistory);
 		Showhistory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -55,6 +61,9 @@ public class HomeClientForm extends JFrame {
 		});
 		
 		JButton btnNewButton_1 = new JButton("BOOKING");
+		btnNewButton_1.setBackground(new Color(153, 102, 51));
+		btnNewButton_1.setForeground(new Color(255, 255, 255));
+		btnNewButton_1.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 30));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				FormSearch search = new FormSearch();
@@ -63,19 +72,12 @@ public class HomeClientForm extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnNewButton_1.setBounds(440, 138, 89, 87);
+		btnNewButton_1.setBounds(476, 235, 169, 87);
 		contentPane.add(btnNewButton_1);
 		
-		JButton btnLogout = new JButton("LOGOUT");
-		btnLogout.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnLogout.setBounds(10, 11, 89, 23);
-		contentPane.add(btnLogout);
-		
-		JButton btnCancel = new JButton("CANCLE");
+		JButton btnCancel = new JButton("LOGOUT");
+		btnCancel.setFont(new Font("Gill Sans MT Condensed", Font.BOLD, 20));
+		btnCancel.setBackground(new Color(204, 153, 102));
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginForm a = new LoginForm();
@@ -83,7 +85,7 @@ public class HomeClientForm extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnCancel.setBounds(108, 11, 89, 23);
+		btnCancel.setBounds(12, 13, 89, 23);
 		contentPane.add(btnCancel);
 	}
 }
